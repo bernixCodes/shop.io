@@ -11,6 +11,7 @@ const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loginError, setLoginError] = useState("");
+  // eslint-disable-next-line no-unused-vars
   const [loginSuccess, setLoginSuccess] = useState("");
 
   const onSubmitForm = async (e) => {
@@ -37,11 +38,12 @@ const Login = () => {
       .then(async (res) => {
         let user = await res.json();
         console.log(user.id);
-        if (user.id > 0) {
+        if (user) {
+          // setLoginSuccess("Login successful");
+
+          navigate("/");
           login(user);
           setAuth(true);
-          setLoginSuccess("Login successful");
-          navigate("/");
         }
       })
       .catch((error) => {

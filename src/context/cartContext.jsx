@@ -1,34 +1,28 @@
 import { createContext, useState } from "react";
 
-export const CartContext = createContext(null);
+export const CartContext = createContext();
 
 // eslint-disable-next-line react/prop-types
 export const CartProvider = ({ children }) => {
+  // eslint-disable-next-line no-unused-vars
   const [cartNumber, setCartNumber] = useState(0);
 
   const addToCart = () => {
     setCartNumber((prevCount) => prevCount + 1);
   };
 
-  const contextValue = {
-    cartNumber,
-    addToCart,
-  };
+  // const contextValue = {
+  //   cartNumber,
+  //   addToCart,
+  // };
 
   return (
     <>
-      <CartContext.Provider value={{ contextValue }}>
+      <CartContext.Provider value={{ addToCart }}>
         {children}
       </CartContext.Provider>
     </>
   );
 };
 
-// export function useCartContext() {
-//   const context = useContext(CartContext);
-//   if (!context) {
-//     throw new Error("useCartContent should be within a themeContextProvider");
-//   }
 
-//   return context;
-// }
