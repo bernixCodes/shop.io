@@ -11,14 +11,14 @@ export const CartProvider = ({ children }) => {
     setCartNumber((prevCount) => prevCount + 1);
   };
 
-  // const contextValue = {
-  //   cartNumber,
-  //   addToCart,
-  // };
+  const contextValue = {
+    cartNumber,
+    addToCart,
+  };
 
   return (
     <>
-      <CartContext.Provider value={{ addToCart }}>
+      <CartContext.Provider value={contextValue}>
         {children}
       </CartContext.Provider>
     </>

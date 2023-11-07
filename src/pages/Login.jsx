@@ -1,12 +1,10 @@
-import Header from "../components/header/Header";
-import { useContext } from "react";
-import { AuthContext } from "../context/authContext";
+// import Header from "../components/header/Header";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useAuthContext } from "./../context/useAuthContext";
 
 const Login = () => {
-  const login = useContext(AuthContext);
-  const setAuth = useContext(AuthContext);
+  const { login, setAuth } = useAuthContext();
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -41,9 +39,9 @@ const Login = () => {
         if (user) {
           // setLoginSuccess("Login successful");
 
-          navigate("/");
           login(user);
           setAuth(true);
+          navigate("/");
         }
       })
       .catch((error) => {
@@ -53,7 +51,7 @@ const Login = () => {
 
   return (
     <div>
-      <Header />
+      {/* <Header /> */}
       <section className="login ">
         <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
           <div className="w-full rounded-lg shadow  md:mt-0 sm:max-w-md xl:p-0 0">

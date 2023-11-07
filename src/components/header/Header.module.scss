@@ -3,6 +3,10 @@
   padding: 0;
   overflow-x: hidden;
 }
+
+.mr{
+  margin-right: 1rem;
+}
 header {
   width: 100%;
   background-color: rgb(21, 21, 40);
@@ -76,16 +80,19 @@ header {
     }
 
     .cart {
-      margin-right: 3rem;
+      margin-right: 5rem;
       position: relative;
+     
       a {
         text-decoration: none;
       }
 
       .cart-count {
         position: absolute;
-        top: -0.5rem;
-        right: -0.5rem;
+        top: -0.3rem;
+        left: 2.4rem;
+        font-size: 0.8rem;
+        color: orangered;
       }
     }
   }
@@ -116,6 +123,7 @@ header {
 
       a {
         text-decoration: none;
+        display: flex;
         color: #fff;
         &:hover {
           color: orangered;
@@ -123,9 +131,10 @@ header {
       }
 
       .cart-count {
-        position: absolute;
-        top: -0.5rem;
-        right: -0.5rem;
+        // position: absolute;
+        top: 0;
+        right: 1rem;
+        color: #fff;
       }
     }
 

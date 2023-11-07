@@ -7,9 +7,8 @@ import { CartProvider } from "./context/cartContext";
 function App() {
   return (
     <>
-      <Header />
-
       <CartProvider>
+        <Header />
         <Home />
       </CartProvider>
       <Footer />

@@ -11,24 +11,22 @@ export const AuthProvider = ({ children }) => {
     setCurrentUser(user);
   };
 
-  //   const logout = () => {
-  //     setCurrentUser(null);
-  //   };
+  const logout = () => {
+    setCurrentUser(null);
+  };
 
-  //   const data = {
-  //     auth,
-  //     setAuth,
-  //     setCurrentUser,
-  //     currentUser,
-  //     login,
-  //     logout,
-  //   };
+  const data = {
+    auth,
+    setAuth,
+    setCurrentUser,
+    currentUser,
+    login,
+    logout,
+  };
 
   return (
     <>
-      <AuthContext.Provider value={(login, [currentUser], setAuth, auth)}>
-        {children}
-      </AuthContext.Provider>
+      <AuthContext.Provider value={data}>{children}</AuthContext.Provider>
     </>
   );
 };
