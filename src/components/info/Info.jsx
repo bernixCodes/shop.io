@@ -20,12 +20,12 @@ const data = [
   {
     icon: <BsCartCheck size={30} color="#fa82ea" />,
     heading: "Quality Products",
-    text: "We sell products from only tested and proven brands.",
+    text: "We sell products from tested and proven brands.",
   },
   {
     icon: <BsClockHistory size={30} color="#82fa9e" />,
     heading: "24/7 Support",
-    text: "Get access to support from our exprt support team.",
+    text: "Get access to support from our support team.",
   },
 ];
 

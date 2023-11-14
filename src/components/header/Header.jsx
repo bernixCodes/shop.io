@@ -2,17 +2,30 @@ import { Link, NavLink } from "react-router-dom";
 import styles from "./Header.module.scss";
 import { AiOutlineShoppingCart } from "react-icons/ai";
 import { HiOutlineMenuAlt3 } from "react-icons/hi";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useCartContext } from "../../context/useCartContext";
 import { useAuthContext } from "../../context/useAuthContext";
 
 const Header = () => {
   const [showMenu, setShowMenu] = useState(false);
   const { cartNumber } = useCartContext();
-  const { currentUser, auth, logout } = useAuthContext();
+  const { setCurrentUser, currentUser, setAuth, auth, logout } =
+    useAuthContext();
+
   const toggleMenu = () => {
     setShowMenu(!showMenu);
   };
+
+  useEffect(() => {
+    const localToken = localStorage.getItem("token");
+    if (localToken && localToken.length > 0) {
+      setAuth(true);
+      let user = JSON.parse(localStorage.getItem("user"));
+      setCurrentUser(user);
+    } else {
+      setAuth(false);
+    }
+  }, [setCurrentUser, setAuth]);
 
   return (
     <header>
