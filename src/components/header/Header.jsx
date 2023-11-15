@@ -38,7 +38,7 @@ const Header = () => {
           </Link>
         </div>
 
-        {auth && <p>{currentUser.name}</p>}
+        {auth && <p className={styles.currentUser}>{currentUser.name}</p>}
         <nav>
           <div className={styles["header-right"]}>
             {!auth && (

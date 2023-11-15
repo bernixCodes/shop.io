@@ -2,13 +2,11 @@
 import { useEffect, useState } from "react";
 import Header from "./../components/header/Header";
 import { useAuthContext } from "../context/useAuthContext";
+import toast from "react-hot-toast";
+import { Toaster } from "react-hot-toast";
 
 const Cart = () => {
-  // const [carts, setCarts] = useState([]);
-  const [carts, setCarts] = useState(() => {
-    const storedCart = localStorage.getItem("cartItems");
-    return storedCart ? storedCart : [];
-  });
+  const [carts, setCarts] = useState([]);
 
   const [totalPrice, setTotalPrice] = useState(0);
   const { currentUser } = useAuthContext();
@@ -21,38 +19,60 @@ const Cart = () => {
     setTotalPrice(total.toFixed(2));
   };
 
-  useEffect(() => {
+  const removeNotify = () =>
+    toast("Item removed from cart!", {
+      position: "bottom-center",
+      duration: 3000,
+      style: { width: "300px", backgroundColor: "red", color: "white" },
+    });
+
+  const fetchCarts = async () => {
     const url = `https://remote-app-api-c4a491abd7bc.herokuapp.com/api/getCartwithUserId/${currentUser.id}`;
-    if (currentUser.id) {
-      const fetchCarts = async () => {
-        try {
-          const response = await fetch(url);
-          const data = await response.json();
-          console.log(data);
-          setCarts(data);
-          localStorage.setItem("cartItems", JSON.stringify(data));
-          calculateTotalPrice(data);
-        } catch (error) {
-          console.log("error", error);
-        }
-      };
-      fetchCarts();
+
+    try {
+      const response = await fetch(url);
+      const data = await response.json();
+      console.log(data);
+      setCarts(data);
+      localStorage.setItem("cartItems", JSON.stringify(data));
+      calculateTotalPrice(data);
+    } catch (error) {
+      console.log("error", error);
+    }
+  };
+  useEffect(() => {
+    const storedCart = localStorage.getItem("cartItems");
+    if (storedCart) {
+      // Convert storedCart from string to array
+      setCarts(JSON.parse(storedCart));
     }
   }, []);
+  useEffect(() => {
+    if (currentUser.id) {
+      fetchCarts();
+    }
+  }, [currentUser.id]);
 
   const removeCartItem = async (id) => {
     try {
       const response = await fetch(
-        `https://remote-app-api-c4a491abd7bc.herokuapp.com/api/deleteCartItem/${id}/${currentUser.id}`,
+        `https://remote-app-api-c4a491abd7bc.herokuapp.com/api/deleteCartItem`,
         {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
           },
+          body: JSON.stringify({
+            cart_id: Number(id),
+            user_id: Number(currentUser.id),
+          }),
         }
       );
+      removeNotify();
 
+      console.log("request sent");
       const data = await response.json();
+      fetchCarts();
       console.log(data);
     } catch (error) {
       console.error("Error removing cart item", error);
@@ -127,6 +147,7 @@ const Cart = () => {
 
               {/* <a href="" className="inline-block cursor-pointer btn-primary px-6 py-2 rounded-full text-white font-bold mt-6">Login to continue</a> */}
             </div>
+            <Toaster />
           </div>
         )}
       </section>
