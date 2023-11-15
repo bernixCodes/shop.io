@@ -16,6 +16,7 @@ const Carouseltem = ({ product }) => {
     toast("Successfully added to cart!", {
       position: "bottom-right",
       duration: 3000,
+      style: { width: "250px", backgroundColor: "green", color: "white" },
     });
 
   const notifyErr = () =>
